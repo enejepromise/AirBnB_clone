@@ -1,27 +1,47 @@
-#!/usr/bin/python3
-"""This module defines a base class for all models in our hbnb clone"""
-from uuid import uuid4
+#!/usr/bin/env python3
+"""
+This module contains BaseModel implementation
+"""
+import uuid
+from models import storage
 from datetime import datetime
 
-class BaseModel(self):
-    """This is a basemodel that defines all the instances of a common element"""
-    def __ini__(self):
-        self.id = str(uuid4)
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
-   
-   def __str__(self):
-        """Return a string representation of the instance."""
-        return f"[{self.__class__. __name__}] (self.id) {self.__dict__}"
-    
+
+class BaseModel:
+    """Represents a BaseModel with basic attributes/methods"""
+    def __init__(self, *args, **kwargs):
+        """Initializes BaseModel instances"""
+        if kwargs:
+            exed = ["created_at", "updated_at"]
+
+            for key, value in kwargs.items():
+                if key in exed and isinstance(value, str):
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+
+                if key != "__class__":
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.updated_at = self.created_at = datetime.now()
+            storage.new(self)
+
+    def __str__(self):
+        """Returns formatted string of the instance"""
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+
     def save(self):
-        """Update the updated_at attribute with the current datetime."""
-        self.updated_at = datetime.utcnow()
-    
+        """Updates the `updated_at` timestamp"""
+        self.updated_at = datetime.now()
+
+        # Updates the timestamp on saved instance before saving to file
+        storage.new(self)
+        storage.save()
+
     def to_dict(self):
-        """Return a dictionary representation of the instance."""
-        my_dict = self.__dict__.copy()
-        my_dict["__class__"] = [self.__class__.__name__]
-        my_dict["self.created_at"] = datetime.utcnow()
-        my_dict["self.updated_at"] = datetime.utcnow()
-        return my_dict
+        """Returns dictionary representation of BaseModel instance"""
+        re_dict = self.__dict__.copy()
+        re_dict["created_at"] = self.created_at.isoformat()
+        re_dict["updated_at"] = self.updated_at.isoformat()
+        re_dict["__class__"] = self.__class__.__name__
+
+        return re_dict
