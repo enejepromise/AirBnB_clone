@@ -9,10 +9,11 @@ class BaseModel:
 
     def __init__(self):
         """This a method that initailizes"""
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = deepcopy(self.created_at)
-    def save(self):
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
+        self.updated_at = deepcopy(self.created_at)
+
+        def save(self):
         self.updated_at = datetime.now()
 
     def to_dict(self):
