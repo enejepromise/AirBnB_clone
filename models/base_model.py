@@ -4,11 +4,20 @@ from uuid import uuid4
 from copy import deepcopy
 
 class BaseModel:
-    """Class that will common attributes/method will inherit from"""
+    """Class that common attributes/method will inherit from"""
     format = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self, *_, **kwargs):
-        """This a method that initailizes"""
+        """Initialize a new BaseModel instance.
+
+    Args:
+        *_: Unused positional arguments.
+        **kwargs: Keyword arguments for initializing the instance.
+            - If kwargs is not empty, the method will set the attributes of the instance
+              using the key-value pairs in kwargs, except for the "__class__" key.
+            - If kwargs is empty, the method will generate a new unique id and set the
+              created_at and updated_at attributes to the current datetime.
+    """
         if len(kwargs)!= 0:
             for k, v in kwargs.items():
                 if k != "__class__":
