@@ -13,7 +13,7 @@ class BaseModel:
             for k, v in kwargs.items():
                 if k != "__class__":
                     if k == "created_at" or k == "updated_at":
-                        setattr(self, k, datetime.strftime(v, BaseModel.format))
+                        setattr(self,k,datetime.strftime(v,BaseModel.format))
                     else:
                         setattr(self, k,v)
         else:
