@@ -5,7 +5,7 @@ from copy import deepcopy
 
 class BaseModel:
     """Class that will common attributes/method will inherit from"""
-    format = %Y-%m-%dT%H:%M:%S.%f
+    format = "%Y-%m-%dT%H:%M:%S.%f"
 
     def __init__(self):
         """This a method that initailizes"""
