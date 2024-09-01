@@ -20,8 +20,8 @@ class BaseModel:
         dct = {}
         dct.update(self.__dict__)
         dct["__class__"] = self.__class__.__name__
-        dct["created_at"] = self.datetime.strftime(self.format)
-        dct["updated_at"] = self.datetime.strftime(self.format)
+        dct["created_at"] = self.created_at.strftime(self.format)
+        dct["updated_at"] = self.updated_at.strftime(self.format)
 
         return dct
 
