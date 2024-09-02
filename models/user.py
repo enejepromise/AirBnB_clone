@@ -1,14 +1,13 @@
-#!/usr/bin/python3
-
-from base_model import BaseModel
-
-class user(BaseModel):
-    email: ""
-    password: str = ""
-    first_name: str = ""
-    last_name: str = ""
+#!/usr/bin/env python3
+"""
+User class implementation
+"""
+from models.base_model import BaseModel
 
 
-def __init__(self, *args, **kwargs):
-        """initialization of user objects"""
-        super().__init__(*args, **kwargs)
+class User(BaseModel):
+    """User class"""
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
